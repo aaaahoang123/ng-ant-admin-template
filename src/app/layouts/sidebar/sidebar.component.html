@@ -1,0 +1,12 @@
+<div class="sidebar" [ngClass]="fixedSideBarMd ? 'fixed-sidebar-md' : 'w-100'" nz-col [nzSm]="24" [nzXs]="24" [nzMd]="8" [nzXl]="5" [nzXXl]="4">
+  <ul nz-menu [nzMode]="'inline'">
+    <li nz-menu-group *ngFor="let group of routerGroups">
+      <span title *ngIf="group.name">{{group.name}}</span>
+      <ul>
+        <li nz-menu-item (click)="onSelectRoute()" *ngFor="let route of group.children" [routerLink]="route.path" [nzSelected]="isSelected(route.path)">
+          <i nz-icon type="{{route.icon}}" *ngIf="route.icon"></i> {{route.name}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

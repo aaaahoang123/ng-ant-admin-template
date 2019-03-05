@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'hoang-cong-admin';
+  openMobileMenu = false;
+  drawerSidebarVisible = false;
+  triggerMobileMenu = () => {
+    this.drawerSidebarVisible = !this.drawerSidebarVisible;
+  }
+
 }
