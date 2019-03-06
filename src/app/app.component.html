@@ -1,14 +1,31 @@
 <main class="page-wrapper">
   <app-header [btnTrigger]="triggerMobileMenu"></app-header>
-  <nz-drawer [nzClosable]="false" [nzVisible]="drawerSidebarVisible"
+  <nz-drawer [nzClosable]="false" [nzVisible]="drawerSidebarVisible && isMobileScreen"
              [nzBodyStyle]="{padding: 0}"
-             nzPlacement="left" nzTitle="Basic Drawer" (nzOnClose)="drawerSidebarVisible=false">
-    <app-sidebar></app-sidebar>
+             nzPlacement="left"
+             [nzWrapClassName]="'mobile-menu-drawer'"
+             [nzTitle]="mobileMenuDrawerTitle"
+             (nzOnClose)="drawerSidebarVisible=false">
+    <ng-template #mobileMenuDrawerTitle>
+      <nz-card style="width:100%" [nzActions]="[actionSetting,actionEdit]">
+        <nz-card-meta nzTitle="Hoàng đỗ" [nzAvatar]="avatarTemplate"></nz-card-meta>
+      </nz-card>
+      <ng-template #avatarTemplate>
+        <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+      </ng-template>
+      <ng-template #actionSetting>
+        <i nz-icon type="user"></i>
+      </ng-template>
+      <ng-template #actionEdit>
+        <i nz-icon type="logout"></i>
+      </ng-template>
+    </ng-template>
+    <app-sidebar [itemTrigger]="triggerMobileMenu"></app-sidebar>
   </nz-drawer>
   <section class="main-wrapper">
     <div nz-row>
-      <div nz-col [nzSm]="24" [nzXs]="24" [nzMd]="7" [nzXl]="5" [nzXXl]="4" class="sidebar-bg">
-        <app-sidebar [ngClass]="{'md-hidden': !openMobileMenu}" [itemTrigger]="triggerMobileMenu"></app-sidebar>
+      <div nz-col [nzSm]="0" [nzXs]="0" [nzMd]="7" [nzXl]="5" [nzXXl]="4" class="sidebar-bg" *ngIf="!isMobileScreen">
+        <app-sidebar [itemTrigger]="triggerMobileMenu"></app-sidebar>
       </div>
       <div nz-col [nzSm]="24" [nzXs]="24" [nzMd]="17" [nzXl]="19" [nzXXl]="20" class="content-bg">
         <article class="content-container">

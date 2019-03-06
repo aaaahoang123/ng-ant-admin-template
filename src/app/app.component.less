@@ -10,7 +10,7 @@
   position: relative;
   [nz-row] {
     display: flex;
-    @media (max-width: @sizes[md]) {
+    @media (max-width: @screen-sm-max) {
       flex-direction: column;
     }
   }
@@ -21,7 +21,10 @@
   }
 }
 .content-container {
-  margin: 24px 24px 0;
+  margin: 32px 0 0 0;
+  @media (min-width: @screen-md-min) {
+    margin: 24px 24px 0;
+  }
 }
 .sidebar-bg {
   background: #fff;

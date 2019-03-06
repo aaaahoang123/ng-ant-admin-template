@@ -1,11 +1,19 @@
 @import '../../../defines';
 
+@header-sm-height: 32px;
+
 header {
   background: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
   position: relative;
   z-index: 10;
   max-width: 100%;
+  line-height: 22px;
+  @media only screen and (max-width: @screen-sm-max + 0.5) {
+    position: fixed;
+    width: 100%;
+    height: @header-sm-height;
+  }
 }
 
 .search-box {
@@ -42,13 +50,14 @@ header {
 .nav-phone-icon {
   display: none;
   position: absolute;
-  right: 30px;
-  top: 25px;
+  left: 30px;
+  top: 8px;
   z-index: 1;
   width: 16px;
-  height: 22px;
+  height: 16px;
+  font-size: 16px;
   cursor: pointer;
-  @media (max-width: @sizes[md]) {
+  @media (max-width: @screen-sm-max + 0.5) {
     display: block;
   }
 }
@@ -64,9 +73,6 @@ header {
   @media (max-width: @sizes[lg]) {
     padding: 0 40px;
   }
-  @media (max-width: @sizes[md]) {
-    float: initial;
-  }
   img {
     height: 32px;
     margin-right: 16px;
@@ -74,6 +80,18 @@ header {
       height: 16px;
       position: relative;
       top: 1px;
+    }
+  }
+  @media (max-width: @screen-sm-max + 0.5) {
+    float: initial;
+    height: @header-sm-height;
+    line-height: @header-sm-height;
+    img {
+      height: @header-sm-height - 6;
+      margin-bottom: 3px;
+      +img {
+        height: (@header-sm-height - 6) / 2;
+      }
     }
   }
 }

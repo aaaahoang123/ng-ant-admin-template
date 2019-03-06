@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.routerGroups = routerGroups;
+    this.onWindowScroll();
   }
 
   onSelectRoute() {

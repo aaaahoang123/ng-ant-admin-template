@@ -578,3 +578,21 @@
 .text-center {
   text-align: center;
 }
+.text-sm-center {
+  @media (max-width: @screen-md-min) {
+    text-align: center;
+  }
+}
+
+.mobile-menu-drawer {
+  .ant-drawer-header {
+    padding: 0;
+  }
+  .ant-card-actions > li {
+    margin: 0;
+  }
+  .ant-card-meta-title {
+    height: @btn-height-base;
+    line-height: @btn-height-base;
+  }
+}
