@@ -1,13 +1,15 @@
 <main class="page-wrapper">
-  <app-header [btnTrigger]="triggerMobileMenu"></app-header>
-  <nz-drawer [nzClosable]="false" [nzVisible]="drawerSidebarVisible && isMobileScreen"
-             [nzBodyStyle]="{padding: 0}"
-             nzPlacement="left"
-             [nzWrapClassName]="'mobile-menu-drawer'"
-             [nzTitle]="mobileMenuDrawerTitle"
-             (nzOnClose)="drawerSidebarVisible=false">
+  <app-header *ngIf="!isMobileScreen"></app-header>
+
+  <nz-affix *ngIf="isMobileScreen">
+    <app-header (clickMenuButton)="triggerMobileMenuDrawer()" *ngIf="isMobileScreen"></app-header>
+  </nz-affix>
+
+  <nz-drawer [nzClosable]="false" [nzVisible]="drawerSidebarVisible && isMobileScreen" [nzBodyStyle]="{padding: 0}"
+    nzPlacement="left" [nzWrapClassName]="'mobile-menu-drawer'" [nzTitle]="mobileMenuDrawerTitle"
+    (nzOnClose)="drawerSidebarVisible=false">
     <ng-template #mobileMenuDrawerTitle>
-      <nz-card style="width:100%" [nzActions]="[actionSetting,actionEdit]">
+      <nz-card class="w-100" [nzActions]="[actionSetting,actionEdit]">
         <nz-card-meta nzTitle="Hoàng đỗ" [nzAvatar]="avatarTemplate"></nz-card-meta>
       </nz-card>
       <ng-template #avatarTemplate>
@@ -20,17 +22,29 @@
         <i nz-icon type="logout"></i>
       </ng-template>
     </ng-template>
-    <app-sidebar [itemTrigger]="triggerMobileMenu"></app-sidebar>
+
+    <app-sidebar (selectItem)="triggerMobileMenuDrawer()"></app-sidebar>
   </nz-drawer>
   <section class="main-wrapper">
     <div nz-row>
       <div nz-col [nzSm]="0" [nzXs]="0" [nzMd]="7" [nzXl]="5" [nzXXl]="4" class="sidebar-bg" *ngIf="!isMobileScreen">
-        <app-sidebar [itemTrigger]="triggerMobileMenu"></app-sidebar>
+        <nz-affix>
+          <app-sidebar></app-sidebar>
+        </nz-affix>
       </div>
       <div nz-col [nzSm]="24" [nzXs]="24" [nzMd]="17" [nzXl]="19" [nzXXl]="20" class="content-bg">
         <article class="content-container">
           <router-outlet></router-outlet>
           <app-dashboard></app-dashboard>
+
+          <form [formGroup]="form" (submit)="submit()">
+            <!-- <input type="text" formControlName="image">
+            <nz-input-number formControlName="image"></nz-input-number> -->
+            <app-custom-image-upload formControlName="image" [mode]="'multi'" [limitImagesQuantity]="5">
+            </app-custom-image-upload>
+            <button>Submit</button>
+          </form>
+
         </article>
         <nz-footer class="text-center">Ant Design ©2017 Implement By Angular</nz-footer>
       </div>

@@ -3,7 +3,8 @@
 @ant-prefix : ant;
 
 // -------- Colors -----------
-@primary-color : @blue-6;
+// @primary-color : @blue-6;
+@primary-color : rgb(47, 84, 235);
 @info-color : @blue-6;
 @success-color : @green-6;
 @processing-color : @blue-6;
@@ -542,7 +543,7 @@
 
 /* You can add global styles to this file, and also import other style files */
 .w-100 {
-  width: 100%;
+  width: 100%!important;
 }
 @m-pParam: 0.25;
 .margin-variation(@index) when (@index <= 5) {
@@ -579,7 +580,7 @@
   text-align: center;
 }
 .text-sm-center {
-  @media (max-width: @screen-md-min) {
+  @media (max-width: @screen-sm-max) {
     text-align: center;
   }
 }
@@ -594,5 +595,8 @@
   .ant-card-meta-title {
     height: @btn-height-base;
     line-height: @btn-height-base;
+  }
+  .ant-drawer-wrapper-body {
+    overflow: hidden!important;
   }
 }

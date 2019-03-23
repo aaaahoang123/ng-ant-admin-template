@@ -1,6 +1,6 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {routerGroups} from '../../app-routing.module';
-import {Router} from '@angular/router';
+import { Component, HostListener, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ROUTER_GROUPS } from '../../app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./sidebar.component.less']
 })
 export class SidebarComponent implements OnInit {
-  @Input() itemTrigger;
+  @Output() selectItem: EventEmitter<any>;
   fixedSideBarMd = false;
   routerGroups = [];
 
@@ -16,18 +16,20 @@ export class SidebarComponent implements OnInit {
   onWindowScroll() {
     this.fixedSideBarMd = window.pageYOffset > 60;
   }
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.selectItem = new EventEmitter();
+  }
 
   ngOnInit() {
-    this.routerGroups = routerGroups;
+    this.routerGroups = Object.values(ROUTER_GROUPS);
     this.onWindowScroll();
   }
 
   onSelectRoute() {
-    this.itemTrigger();
+    this.selectItem.emit();
   }
 
-  isSelected(url: string) {
-    return this.router.isActive(url, false);
+  isSelected(url: string[]) {
+    return this.router.isActive(this.router.createUrlTree(url), false);
   }
 }

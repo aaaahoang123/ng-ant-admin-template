@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,15 +6,17 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-  @Input() btnTrigger;
+  @Output() clickMenuButton: EventEmitter<any>;
   headerAction = 1;
-  constructor() { }
+  constructor() {
+    this.clickMenuButton = new EventEmitter();
+  }
 
   ngOnInit() {
   }
 
   triggerBtn() {
-    this.btnTrigger();
+    this.clickMenuButton.emit();
   }
 
 }

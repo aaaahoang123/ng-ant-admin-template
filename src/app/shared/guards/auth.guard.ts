@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {NzNotificationService} from 'ng-zorro-antd';
-import {ACCESS_TOKEN_SECRET_KEY, BASE_URL} from './resources/static.resource';
+import { HttpClient } from '@angular/common/http';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { ACCESS_TOKEN_SECRET_KEY, BASE_URL } from '../resources/static.resource';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     private http: HttpClient,
     private router: Router,
     private notify: NzNotificationService
-  ) {}
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
