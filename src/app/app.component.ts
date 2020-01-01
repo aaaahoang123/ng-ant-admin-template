@@ -1,8 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { ROUTER_GROUPS } from './app-routing.module';
-import { Title } from '@angular/platform-browser';
-import { FormGroup, FormControl } from '@angular/forms';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
+import {ROUTER_GROUPS} from './app-routing.module';
+import {Title} from '@angular/platform-browser';
+import {filter} from 'rxjs/operators';
+import {select, Store} from '@ngrx/store';
+import AppState from './utils/store/app.state';
+import {Observable} from 'rxjs';
+import {MainState} from './store/main.state';
 
 @Component({
   selector: 'app-root',
@@ -10,28 +14,41 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  form = new FormGroup({
-    image: new FormControl()
-  });
   drawerSidebarVisible = false;
   isMobileScreen = false;
-  constructor(private router: Router, private title: Title) { }
+  mainState$: Observable<MainState>;
+  constructor(
+    private router: Router,
+    private title: Title,
+    private store$: Store<AppState>
+  ) {
+  }
+
   ngOnInit(): void {
     this.onResize();
-    this.router.events.subscribe((ev: RouterEvent) => {
-      if (ev instanceof NavigationEnd) {
-        for (const route of Object.values(ROUTER_GROUPS)) {
+    this.listenRouterChange();
+    this.mainState$ = this.store$.pipe(
+      select(state => state.main)
+    );
+  }
+
+  listenRouterChange() {
+    this
+      .router
+      .events
+      .pipe(filter(ev => ev instanceof NavigationEnd))
+      .subscribe(() => {
+        for (const route of ROUTER_GROUPS) {
           const groupRoute = route.path;
-          if (route.children) {
-            for (const child of route.children) {
+          if (route._children) {
+            for (const child of route._children) {
               if (this.router.isActive(this.router.createUrlTree([groupRoute, child.path]), false)) {
                 this.title.setTitle(child.data.name);
               }
             }
           }
         }
-      }
-    });
+      });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -41,9 +58,5 @@ export class AppComponent implements OnInit {
 
   triggerMobileMenuDrawer() {
     this.drawerSidebarVisible = !this.drawerSidebarVisible;
-  }
-
-  submit() {
-    console.log(this.form.value);
   }
 }

@@ -1,5 +1,5 @@
 <header class="clearfix">
-  <i nz-icon type="menu-unfold" class="nav-phone-icon" theme="outline" (click)="triggerBtn()"></i>
+  <i nz-icon nzType="menu-unfold" class="nav-phone-icon" theme="outline" (click)="triggerBtn()"></i>
   <section nz-row>
     <div nz-col [nzSm]="24" [nzXs]="24" [nzMd]="7" [nzXl]="5" [nzXXl]="4" class="text-sm-center">
       <a href="" id="logo">
@@ -13,7 +13,7 @@
         <nz-input-group [nzPrefix]="prefixTemplate">
           <input type="text" nz-input placeholder="Search this">
         </nz-input-group>
-        <ng-template #prefixTemplate><i nz-icon type="search"></i></ng-template>
+        <ng-template #prefixTemplate><i nz-icon nzType="search"></i></ng-template>
       </div>
       <div class="header-action">
         <nz-select nzSize="small" [(ngModel)]="headerAction">

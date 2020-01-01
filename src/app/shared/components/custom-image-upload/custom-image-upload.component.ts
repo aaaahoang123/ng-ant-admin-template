@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
-import { BASE_URL } from '../../resources/static.resource';
 import { UploadFile } from 'ng-zorro-antd';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {BASE_URL} from '../../../app.properties';
 
 const DEFAULT_URL = `${BASE_URL}upload-image`;
 
@@ -27,19 +27,19 @@ export class CustomImageUploadComponent implements OnInit, ControlValueAccessor 
   imageNames: string[];
   // Các link ảnh được nhập vào từ input. Do giá trị của formControl có thể là tên ảnh, nên cần nhập thêm link khi cần thiết để hiển thị.
   // Mặc định sẽ set các link ảnh = tên ảnh (trong trường hợp dùng chung)
-  private Images: string[];
+  private _images: string[];
   // Các object ảnh để hiển thị, được parse ra từ các link ảnh.
   // Tự động setup khi set giá trị mới cho link ảnh.
   displayImages = [];
 
 
   get images(): string[] {
-    return this.Images;
+    return this._images;
   }
   @Input()
   set images(value: string[]) {
-    this.Images = value;
-    this.displayImages = value ? this.Images.map((image, index) => {
+    this._images = value;
+    this.displayImages = value ? this._images.map((image, index) => {
       return {
         uid: 0 - index,
         name: image,

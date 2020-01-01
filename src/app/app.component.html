@@ -16,10 +16,10 @@
         <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
       </ng-template>
       <ng-template #actionSetting>
-        <i nz-icon type="user"></i>
+        <i nz-icon nzType="user"></i>
       </ng-template>
       <ng-template #actionEdit>
-        <i nz-icon type="logout"></i>
+        <i nz-icon nzType="logout"></i>
       </ng-template>
     </ng-template>
 
@@ -27,27 +27,22 @@
   </nz-drawer>
   <section class="main-wrapper">
     <div nz-row>
-      <div nz-col [nzSm]="0" [nzXs]="0" [nzMd]="7" [nzXl]="5" [nzXXl]="4" class="sidebar-bg" *ngIf="!isMobileScreen">
-        <nz-affix>
-          <app-sidebar></app-sidebar>
-        </nz-affix>
-      </div>
-      <div nz-col [nzSm]="24" [nzXs]="24" [nzMd]="17" [nzXl]="19" [nzXXl]="20" class="content-bg">
-        <article class="content-container">
-          <router-outlet></router-outlet>
-          <app-dashboard></app-dashboard>
-
-          <form [formGroup]="form" (submit)="submit()">
-            <!-- <input type="text" formControlName="image">
-            <nz-input-number formControlName="image"></nz-input-number> -->
-            <app-custom-image-upload formControlName="image" [mode]="'multi'" [limitImagesQuantity]="5">
-            </app-custom-image-upload>
-            <button>Submit</button>
-          </form>
-
-        </article>
-        <nz-footer class="text-center">Ant Design ©2017 Implement By Angular</nz-footer>
-      </div>
+      <ng-container *ngIf="(mainState$ | async) as mainState">
+        <div nz-col [nzSm]="0" [nzXs]="0" [nzMd]="7" [nzXl]="5" [nzXXl]="4" class="sidebar-bg" *ngIf="!isMobileScreen && mainState.user">
+          <nz-affix>
+            <app-sidebar></app-sidebar>
+          </nz-affix>
+        </div>
+        <div nz-col [nzSm]="24" [nzXs]="24"
+             [nzMd]="mainState.user ? 17 : 24"
+             [nzXl]="mainState.user ? 19 : 24"
+             [nzXXl]="mainState.user ? 20 : 24" class="content-bg">
+          <article class="content-container">
+            <router-outlet></router-outlet>
+          </article>
+          <nz-footer class="text-center">Ant Design ©2017 Implement By Angular</nz-footer>
+        </div>
+      </ng-container>
     </div>
   </section>
 </main>
