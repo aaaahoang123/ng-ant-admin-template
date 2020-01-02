@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, Data} from '@angular/router';
 import { Observable } from 'rxjs';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import AppState from '../../utils/store/app.state';
 import {NzNotificationService} from 'ng-zorro-antd';
-import {map} from 'rxjs/operators';
+import {filter, map, tap} from 'rxjs/operators';
 import {loadUserData} from '../../store/main.actions';
 
 @Injectable({
@@ -31,12 +31,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   private checkLogin(data: Data): Observable<boolean> {
     return this.store$
       .pipe(
-        map(state => {
-          if (!state.main.user) {
-            this.store$.dispatch(loadUserData());
-          }
-          return !!state.main.user;
-        })
+        select(state => state.main.user),
+        tap(u => u || this.store$.dispatch(loadUserData())),
+        filter(user => !!user),
+        map(user => !!user)
       );
   }
 }

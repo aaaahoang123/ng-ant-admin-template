@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { CustomImageUploadComponent } from './components/custom-image-upload/custom-image-upload.component';
+import {ConnectFormDirective} from './directives/connect-form.directive';
 
 const imports = [
   CommonModule,
@@ -13,7 +13,11 @@ const imports = [
   NgZorroAntdModule
 ];
 
-const declarations = [TranslatePipe, CustomImageUploadComponent];
+const declarations = [
+  TranslatePipe,
+  CustomImageUploadComponent,
+  ConnectFormDirective
+];
 
 @NgModule({
   imports,

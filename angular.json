@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hoang-cong-admin": {
+    "ttv-admin": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hoang-cong-admin",
+            "outputPath": "dist/ttv-admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hoang-cong-admin:build"
+            "browserTarget": "ttv-admin:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "hoang-cong-admin:build:production"
+              "browserTarget": "ttv-admin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hoang-cong-admin:build"
+            "browserTarget": "ttv-admin:build"
           }
         },
         "test": {
@@ -112,7 +112,7 @@
         }
       }
     },
-    "hoang-cong-admin-e2e": {
+    "ttv-admin-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -121,11 +121,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "hoang-cong-admin:serve"
+            "devServerTarget": "ttv-admin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "hoang-cong-admin:serve:production"
+              "devServerTarget": "ttv-admin:serve:production"
             }
           }
         },
@@ -141,5 +141,5 @@
       }
     }
   },
-  "defaultProject": "hoang-cong-admin"
+  "defaultProject": "ttv-admin"
 }

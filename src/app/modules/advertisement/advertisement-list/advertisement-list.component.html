@@ -1,0 +1,25 @@
+<nz-spin [nzSpinning]="isLoading$ | async">
+  <nz-card *ngIf="advertisements$ | async as advertisement">
+    <nz-table [nzData]="advertisement"
+              [nzShowPagination]="false"
+              nzFrontPagination="false"
+              [nzBordered]="true"
+    >
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Tiêu đề</th>
+        <th>Vị trí</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr app-advertisement-table-row
+          *ngFor="let adv of advertisement"
+         [advId]="adv"
+      ></tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</nz-spin>

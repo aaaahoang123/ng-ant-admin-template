@@ -1,13 +1,14 @@
 {
-  "name": "hoang-cong-admin",
+  "name": "ttv-admin",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --base-href /ttv-admin/ --outputPath=../new-admin-server/public/ttv-admin && node generate-blade.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:dev": "ng build --watch --base-href /ttv-admin/ --outputPath=../new-admin-server/public/ttv-admin && node generate-blade.js"
   },
   "private": true,
   "dependencies": {

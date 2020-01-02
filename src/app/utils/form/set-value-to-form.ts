@@ -3,14 +3,21 @@ import cloneDeep from 'lodash/cloneDeep';
 
 export default function setValueToForm(form: AbstractControl, data: any, setPristine = false) {
   if (form instanceof FormControl) {
-    form.setValue(data);
-    if (setPristine) {
-      form.markAsPristine();
+    if (form.value !== data) {
+      form.setValue(data);
+      if (setPristine) {
+        form.markAsPristine();
+      }
     }
     return form;
   }
   if (form instanceof FormGroup) {
-    Object.keys(form.controls).forEach(key => setValueToForm(form.get('key'), data[key], setPristine));
+    Object.keys(form.controls).forEach(key => {
+      if (data[key] && !(form.get(key) instanceof FormControl)) {
+        setValueToForm(form.get(key), data[key], setPristine);
+      }
+    });
+    form.patchValue(data);
     return form;
   }
 
@@ -19,6 +26,5 @@ export default function setValueToForm(form: AbstractControl, data: any, setPris
     data.forEach((d, i) => form.setControl( i, setValueToForm(cloneDeep(templateControl), d, setPristine) ));
     return form;
   }
-  form.updateValueAndValidity();
   return form;
 }

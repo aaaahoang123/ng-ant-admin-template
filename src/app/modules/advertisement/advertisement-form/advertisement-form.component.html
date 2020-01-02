@@ -1,0 +1,51 @@
+<nz-card>
+  <section nz-row nzType="flex" nzJustify="center">
+    <div nz-col [nzXXl]="14" [nzXl]="14" [nzLg]="16" [nzMd]="20" [nzSm]="22" [nzXs]="24">
+      <!--[formGroup]="inputForm"-->
+      <form nz-form [nzLayout]="'vertical'"
+            [formGroup]="form"
+            appConnectForm="advertisement.formData"
+            [changeAction]="adFormDataChange"
+            class="w-100">
+        <div nz-row nzGutter="6">
+
+          <div nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-item>
+              <nz-form-label >Tiêu đề <b class="color-danger">*</b></nz-form-label>
+              <nz-form-control nzErrorTip="Hãy nhập tiêu đề quảng cáo">
+                <input nz-input
+                       placeholder="Hãy nhập tiêu đề quảng cáo"
+                       formControlName="name"
+                >
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-item>
+              <nz-form-label >Thứ tự <b class="color-danger">*</b></nz-form-label>
+              <nz-form-control nzErrorTip="Hãy nhập thứ tự quảng cáo">
+                <nz-input-number [nzMin]="0"
+                                 class="w-100"
+                                 formControlName="position"
+                                 nzPlaceHolder="STT quảng cáo"
+                ></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div nz-col [nzXs]="24">
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button nzType="primary" class="w-100">
+                  <i nz-icon nzType="save"></i> Submit</button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+  </section>
+</nz-card>

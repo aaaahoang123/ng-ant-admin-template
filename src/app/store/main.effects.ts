@@ -4,9 +4,11 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {AuthService} from '../modules/auth/auth.service';
 import AppState from '../utils/store/app.state';
 import {loadUserData, submitLoginForm, userChange} from './main.actions';
-import {catchError, exhaustMap, map} from 'rxjs/operators';
+import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {Router} from '@angular/router';
+import {NzNotificationService} from 'ng-zorro-antd';
+import {redirectRoute} from '../app-routing.module';
 
 @Injectable()
 export class MainEffects {
@@ -15,7 +17,11 @@ export class MainEffects {
       ofType(submitLoginForm),
       exhaustMap(action =>
         this.authService.login(action.payload).pipe(
-          map(res => userChange({payload: res.data}))
+          map(res => userChange({payload: res.data})),
+          tap(() => {
+            this.notify.success('Thành công', 'Đăng nhập thành công');
+            this.router.navigateByUrl(redirectRoute.redirectTo);
+          })
         )
       )
     )
@@ -36,7 +42,8 @@ export class MainEffects {
     private action$: Actions,
     private authService: AuthService,
     private store$: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private notify: NzNotificationService
   ) { }
 
 }

@@ -1,1 +1,34 @@
-<p>login works!</p>
+<nz-card>
+  <section nz-row nzType="flex" nzJustify="center">
+    <form nz-form
+          [formGroup]="form"
+          class="login-form w-100"
+          appConnectForm="main.loginForm"
+          (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Hãy nhập tên tài khoản">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="username" placeholder="Tên tài khoản"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Hãy nhập mật khẩu">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Mật khẩu"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button class="login-form-button"
+                  [nzLoading]="submitting$ | async"
+                  [nzType]="'primary'">Đăng nhập</button>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+  </section>
+</nz-card>

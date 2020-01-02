@@ -18,6 +18,8 @@ import {StoreModule} from '@ngrx/store';
 import {mainReducer} from './store/main.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {MainEffects} from './store/main.effects';
+import {advertisementReducer} from './modules/advertisement/store/advertisement.reducer';
+import {AdvertisementEffects} from './modules/advertisement/store/advertisement.effects';
 
 registerLocaleData(vi);
 
@@ -34,8 +36,11 @@ registerLocaleData(vi);
     HttpClientModule,
     LoadingBarHttpClientModule,
     SharedModule,
-    StoreModule.forRoot({main: mainReducer}),
-    EffectsModule.forRoot([MainEffects]),
+    StoreModule.forRoot({
+      main: mainReducer,
+      advertisement: advertisementReducer
+    }),
+    EffectsModule.forRoot([MainEffects, AdvertisementEffects]),
     AppRoutingModule
   ],
   providers: [

@@ -1,16 +1,40 @@
-<div class="sidebar">
-  <ul nz-menu [nzMode]="'inline'">
-    <li nz-menu-group *ngFor="let group of routerGroups">
-      <span title *ngIf="group.name">{{group.name}}</span>
-      <ul>
-        <ng-container *ngFor="let route of group.children">
-          <li nz-menu-item (click)="onSelectRoute()" *ngIf="route.data.display" [routerLink]="[group.path, route.path]"
-            [nzSelected]="isSelected([group.path, route.path])">
-            <i nz-icon nzType="{{route.data.icon}}" *ngIf="route.icon"></i> {{route.data.name}}
-          </li>
-        </ng-container>
+<nz-affix *ngIf="routers$ | async as routers">
+  <section class="sidebar">
+    <ul nz-menu nzMode="inline" class="sider-menu">
+      <ng-container *ngFor="let group of routers">
+        <ng-container *ngIf="group.data?.display">
+          <ng-container *ngIf="group.data?.title else standaloneMenuItem">
+            <li nz-submenu nzOpen [nzIcon]="group.data?.icon" [nzTitle]="groupTitle">
+              <ng-template #groupTitle>
+                <span class="fw-500">{{group.data?.title}}</span>
+              </ng-template>
+              <ul>
+                <ng-container *ngFor="let route of group._children">
+                  <li nz-menu-item
+                      (click)="onSelectRoute()"
+                      *ngIf="route.data?.display"
+                      [nzSelected]="isSelected([group.path, route.path])">
+                    <a [routerLink]="[group.path, route.path]">{{route.data.title}}</a>
+                  </li>
+                </ng-container>
+              </ul>
+            </li>
+          </ng-container>
 
-      </ul>
-    </li>
-  </ul>
-</div>
+          <ng-template #standaloneMenuItem>
+            <ng-container *ngFor="let route of group._children">
+              <li nz-menu-item
+                  (click)="onSelectRoute()"
+                  *ngIf="route.data?.display"
+                  [nzSelected]="isSelected([group.path, route.path])">
+                <a [routerLink]="[group.path, route.path]">
+                  <i nz-icon [nzType]="route.data.icon" *ngIf="route.data.icon"></i> <span class="fw-500">{{route.data.title}}</span>
+                </a>
+              </li>
+            </ng-container>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </section>
+</nz-affix>

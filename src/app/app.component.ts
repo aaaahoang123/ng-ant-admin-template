@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
           if (route._children) {
             for (const child of route._children) {
               if (this.router.isActive(this.router.createUrlTree([groupRoute, child.path]), false)) {
-                this.title.setTitle(child.data.name);
+                this.title.setTitle(child.data.title);
               }
             }
           }
